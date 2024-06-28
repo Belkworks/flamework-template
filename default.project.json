@@ -1,5 +1,5 @@
 {
-	"name": "Template [DEV]",
+	"name": "Flamework Template [DEV]",
 	"globIgnorePaths": [
 		"**/package.json",
 		"**/tsconfig.json"
@@ -9,10 +9,7 @@
 		"ServerScriptService": {
 			"$className": "ServerScriptService",
 			"managed": {
-				"$path": "out/server",
-				"dev": {
-					"$path": "out/dev"
-				}
+				"$path": "out/server"
 			}
 		},
 		"ReplicatedStorage": {

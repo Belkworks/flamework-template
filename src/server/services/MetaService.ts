@@ -17,10 +17,6 @@ export interface OnDeath {
 	onDeath(player: Player, character: Model): void;
 }
 
-export interface OnClose {
-	onStop(): void | Promise<void>;
-}
-
 @Service()
 export class MetaService implements OnStart {
 	onStart() {
@@ -78,18 +74,6 @@ export class MetaService implements OnStart {
 
 		Players.PlayerRemoving.Connect(player => {
 			for (const listener of leaveListeners) task.spawn(() => listener.onLeave(player));
-		});
-
-		// OnStop
-
-		const stopListeners = new Set<OnClose>();
-		Modding.onListenerAdded<OnClose>(listener => stopListeners.add(listener));
-		Modding.onListenerRemoved<OnClose>(listener => stopListeners.delete(listener));
-
-		game.BindToClose(() => {
-			const promises = [];
-			for (const listener of stopListeners) promises.push(listener.onStop());
-			Promise.all(promises).await();
 		});
 	}
 }
