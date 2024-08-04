@@ -1,4 +1,5 @@
 {
+	"name": "flamework-template",
 	"scripts": {
 		"build": "rbxtsc",
 		"clean": "rimraf out flamework.build"
