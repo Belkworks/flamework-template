@@ -1,4 +1,4 @@
 import { RunService } from "@rbxts/services";
-import { FORCE_DEV } from "./config";
 
-export const DEV = RunService.IsStudio() || FORCE_DEV;
+export const STUDIO = RunService.IsStudio();
+export const PROD = STUDIO === false;
