@@ -59,8 +59,12 @@ export class MetaService implements OnStart {
 
 		const fireJoin = (player: Player) => {
 			for (const listener of joinListeners) task.spawn(() => listener.onJoin(player));
-			player.CharacterAdded.Connect(char => onCharacter(player, char));
-			if (player.Character) onCharacter(player, player.Character);
+			const connection = player.CharacterAdded.Connect(char => onCharacter(player, char));
+			const character = player.Character;
+			if (character) onCharacter(player, character);
+			Promise.fromEvent(Players.PlayerRemoving, leaving => leaving === player).then(() =>
+				connection.Disconnect(),
+			);
 		};
 
 		Players.PlayerAdded.Connect(fireJoin);
