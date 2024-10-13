@@ -1,9 +1,9 @@
 import { Controller, OnStart } from "@flamework/core";
-import { sync } from "@rbxts/charm";
+import CharmSync from "@rbxts/charm-sync";
 import * as atoms from "common/atoms";
 import { remotes } from "common/remotes";
 
-const client = sync.client({ atoms });
+const client = CharmSync.client({ atoms });
 
 @Controller()
 export class AtomController implements OnStart {
