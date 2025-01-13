@@ -1,5 +1,6 @@
 import { Modding, OnStart, Service } from "@flamework/core";
 import { Players } from "@rbxts/services";
+import { playerRemovingPromise } from "server/util/player";
 
 export interface OnJoin {
 	onJoin(player: Player): void;
@@ -27,9 +28,7 @@ export class MetaService implements OnStart {
 		Modding.onListenerRemoved<OnSpawn>(listener => spawnListeners.delete(listener));
 
 		const fireSpawn = (player: Player, character: Model) => {
-			for (const listener of spawnListeners) {
-				task.spawn(() => listener.onSpawn(player, character));
-			}
+			for (const listener of spawnListeners) task.spawn(() => listener.onSpawn(player, character));
 		};
 
 		// OnDeath
@@ -39,9 +38,7 @@ export class MetaService implements OnStart {
 		Modding.onListenerRemoved<OnDeath>(listener => deathListeners.delete(listener));
 
 		const fireDeath = (player: Player, character: Model) => {
-			for (const listener of deathListeners) {
-				task.spawn(() => listener.onDeath(player, character));
-			}
+			for (const listener of deathListeners) task.spawn(() => listener.onDeath(player, character));
 		};
 
 		// OnJoin, OnSpawn, OnDeath
@@ -62,13 +59,13 @@ export class MetaService implements OnStart {
 			const connection = player.CharacterAdded.Connect(char => onCharacter(player, char));
 			const character = player.Character;
 			if (character) onCharacter(player, character);
-			Promise.fromEvent(Players.PlayerRemoving, leaving => leaving === player).then(() =>
-				connection.Disconnect(),
-			);
+			playerRemovingPromise(player).then(() => {
+				connection.Disconnect();
+			});
 		};
 
 		Players.PlayerAdded.Connect(fireJoin);
-		Players.GetPlayers().forEach(fireJoin);
+		for (const player of Players.GetPlayers()) fireJoin(player);
 
 		// OnLeave
 
