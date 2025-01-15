@@ -1,4 +1,4 @@
-import { OnStart } from "@flamework/core";
+import { OnStart, Service } from "@flamework/core";
 import { OnJoin } from "./MetaService";
 import { log } from "common/log";
 import { createCollection } from "@rbxts/lapis";
@@ -17,6 +17,7 @@ const collection = createCollection(PROD ? "player-data" : "dev-player-data", {
 	defaultData: defaultData.profile,
 });
 
+@Service()
 export class DataService implements OnJoin, OnStart {
 	private async loadProfile(player: Player) {
 		const document = await collection.load(`${player.UserId}`, [player.UserId]);
