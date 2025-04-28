@@ -34,14 +34,14 @@ const filterPayload = (player: Player, payload: SyncPayload<typeof atoms>): Sync
 	};
 };
 
+server.connect((player, payload) => {
+	const filtered = filterPayload(player, payload);
+	if (filtered) syncRemote.fire(player, filtered);
+});
+
 @Service()
 export class AtomService implements OnStart {
 	onStart() {
-		server.connect((player, payload) => {
-			const filtered = filterPayload(player, payload);
-			if (filtered) syncRemote.fire(player, filtered);
-		});
-
 		remotes.atoms.init.connect(player => server.hydrate(player));
 	}
 }
