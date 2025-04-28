@@ -13,7 +13,7 @@ export class InterfaceController implements OnStart {
 	onStart() {
 		createRoot(new Instance("Folder")).render(
 			<StrictMode>
-				<AppContext.Provider value={this.context.value}>{createPortal(<App />, PlayerGui)}</AppContext.Provider>
+				<AppContext.Provider value={this.context}>{createPortal(<App />, PlayerGui)}</AppContext.Provider>
 			</StrictMode>,
 		);
 	}
