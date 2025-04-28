@@ -1,6 +1,6 @@
 import { createRemotes } from "@rbxts/remo";
-import { atomRemotes as atoms } from "./namespaces/atoms";
+import { atomRemotes } from "./namespaces/atoms";
 
 export const remotes = createRemotes({
-	atoms,
+	atoms: atomRemotes,
 });

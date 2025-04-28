@@ -1,4 +1,4 @@
 import { atom } from "@rbxts/charm";
-import { SharedPlayerData } from "./types/data";
+import type { PlayerData } from "server/store/data/types";
 
-export const sharedPlayerData = atom(new ReadonlyMap<Player["Name"], SharedPlayerData>());
+export const sharedPlayerData = atom(new ReadonlyMap<Player["Name"], PlayerData>());

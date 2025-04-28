@@ -2,7 +2,9 @@ export type PlayerData = {
 	profile: PlayerProfile;
 };
 
-export type PlayerProfile = object;
+export type PlayerProfile = {
+	money?: number;
+};
 
 export const defaultData: PlayerData = {
 	profile: {},
