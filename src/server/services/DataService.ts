@@ -3,15 +3,15 @@ import { OnJoin } from "./MetaService";
 import { log } from "common/log";
 import { createCollection } from "@rbxts/lapis";
 import { PROD } from "common/env";
-import { defaultData, PlayerData } from "server/store/data/types";
+import { defaultData } from "server/store/data/types";
 import { Players } from "@rbxts/services";
 import { removePlayerData, setPlayerData } from "server/store/data/actions";
-import { observe, subscribe } from "@rbxts/charm";
-import { selectData, selectProfile } from "server/store/data/selectors";
+import { subscribe } from "@rbxts/charm";
+import { selectProfile } from "server/store/data/selectors";
 import { playerRemovingPromise } from "server/util/player";
 import { playerDataAtom } from "server/store/data";
 import { sharedPlayerData } from "common/atoms";
-import { set } from "@rbxts/remap";
+import { reduce } from "@rbxts/remap";
 
 const collection = createCollection(PROD ? "player-data" : "dev-player-data", {
 	defaultData: defaultData.profile,
@@ -29,8 +29,8 @@ export class DataService implements OnJoin, OnStart {
 
 		const unsubscribe = subscribe(
 			() => selectProfile(player),
-			data => {
-				if (data !== undefined) document.write(data);
+			(data, oldData) => {
+				if (data && oldData) document.write(data);
 			},
 		);
 
@@ -63,14 +63,9 @@ export class DataService implements OnJoin, OnStart {
 	}
 
 	onStart() {
-		observe(playerDataAtom, (firstState, player) => {
-			const update = (data?: PlayerData) => {
-				sharedPlayerData(state => set(state, player.Name, data!));
-			};
-
-			update(firstState);
-
-			return subscribe(() => selectData(player), update);
-		});
+		subscribe(
+			() => reduce(playerDataAtom(), (map, data, player) => map.set(player.Name, data), new Map()),
+			sharedPlayerData,
+		);
 	}
 }
