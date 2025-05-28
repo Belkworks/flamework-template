@@ -33,8 +33,8 @@ importers:
         specifier: ^0.6.3
         version: 0.6.3
       '@rbxts/pretty-react-hooks':
-        specifier: ^0.6.2
-        version: 0.6.2
+        specifier: ^0.6.4
+        version: 0.6.4(@rbxts/react-roblox@17.2.3)(@rbxts/react@17.2.3)
       '@rbxts/react':
         specifier: ^17.2.3
         version: 17.2.3
@@ -48,8 +48,8 @@ importers:
         specifier: ^0.2.2
         version: 0.2.2
       '@rbxts/remo':
-        specifier: ^1.5.1
-        version: 1.5.1
+        specifier: ^1.5.2
+        version: 1.5.2
       '@rbxts/ripple':
         specifier: ^0.9.3
         version: 0.9.3
@@ -70,8 +70,8 @@ importers:
         specifier: 3.0.0-types.0
         version: 3.0.0-types.0
       '@rbxts/types':
-        specifier: ^1.0.848
-        version: 1.0.848
+        specifier: ^1.0.855
+        version: 1.0.855
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.0.0
         version: 8.0.0(@typescript-eslint/parser@8.0.0(eslint@8.57.0)(typescript@5.5.3))(eslint@8.57.0)(typescript@5.5.3)
@@ -205,8 +205,11 @@ packages:
   '@rbxts/object-utils@1.0.4':
     resolution: {integrity: sha512-dLLhf022ipV+9i910sOE7kl9losKHoon0WgeerHqVMQA5EYsLUsVT2AxhJuhk8MiDn5oJ2GiFofE/LadY9TpJQ==}
 
-  '@rbxts/pretty-react-hooks@0.6.2':
-    resolution: {integrity: sha512-r2qG31eWldcreg1nLzITE9L9fwTEB1wgXk0lpLfRj2FPxMlsGxy+ck5exXCV0UuGnI+ZZdmvHPETiQRpX5yfSw==}
+  '@rbxts/pretty-react-hooks@0.6.4':
+    resolution: {integrity: sha512-yiuM3kOD0s2x0GFCUVfFdeSDJRX2ZycS88WOvqydaYwPIZ5rYDjzHjOzRgSpAzGcTVOFXsO64QOtD6svAdadzg==}
+    peerDependencies:
+      '@rbxts/react': '*'
+      '@rbxts/react-roblox': '*'
 
   '@rbxts/react-charm@0.3.0':
     resolution: {integrity: sha512-w64HoO6SxRSX86yNPiGazPQpR7cWBaWVATK9jkCphLQYmzdUV1BL9pRNN1Y1VMAk/PKiZ1mJdwX3PnwwvLXFvg==}
@@ -226,8 +229,8 @@ packages:
   '@rbxts/remap@0.2.2':
     resolution: {integrity: sha512-VAzqk5LsF5phR0KGrrKYOBPlgwrv+cOE5iDEPTCW1yJvqWwTyhrzfGb9lGKqJvMJ+6gDNbaQJeESkcR1dmdPCw==}
 
-  '@rbxts/remo@1.5.1':
-    resolution: {integrity: sha512-ZLXyMdxBkmuexWKd/Rq912GjgIDznA2Pgc5Kvtzji57FkwlFX+vcoQCdo9cMvV2z9me5RR57TSljk5NO4ErQKw==}
+  '@rbxts/remo@1.5.2':
+    resolution: {integrity: sha512-UQSlJgLcLg1+ocXvg30TfdbuvrS4Qc3yzoxLltc+OP71fF6PmaUg/b6EQlXIt/uBCTOszDHJ7I3nlyG+pTLFjQ==}
 
   '@rbxts/ripple@0.9.3':
     resolution: {integrity: sha512-GmwjQl7a8pvGPGQYLmaAcf2RBPpneOL5P1+U8CzTHt9tBhCdk0TEJ/MQoTv9JnHD62RMBE1jogQBvuGgl9VXAg==}
@@ -253,8 +256,8 @@ packages:
   '@rbxts/trove@1.3.0':
     resolution: {integrity: sha512-Ibekh0xr2G0WTWlUhbIaybWZvKF0C4flaBJBhJOuyS/sp6qyyn9l3pWWbSI4zrIExuOIswwKQ7O1BJj2bIJYCA==}
 
-  '@rbxts/types@1.0.848':
-    resolution: {integrity: sha512-NRe8RW7V7W4YVjJf7c4XfpjA/3rW9XC86mceWFWc+8kexE8hJwCaRTUkLZ5Hd2i9so1zXP68J8OUTguHeK31BQ==}
+  '@rbxts/types@1.0.855':
+    resolution: {integrity: sha512-Glw6Yj+rL5rM5ow0Q2d254LO+g/2hMMdQwOkRKgf1SzS5EqK1gJ0sX93mUwm6tXN6dS3MfPORwPM0VP048Jrjg==}
 
   '@roblox-ts/luau-ast@2.0.0':
     resolution: {integrity: sha512-cmMi093IdwBOLVxwuordhM8AmtbyTIyRpsTbB0D/JauidW4SXsQRQowSwWjHo4QP0DRJBXvOIlxtqEQi50uNzQ==}
@@ -1218,7 +1221,7 @@ snapshots:
 
   '@rbxts/object-utils@1.0.4': {}
 
-  '@rbxts/pretty-react-hooks@0.6.2':
+  '@rbxts/pretty-react-hooks@0.6.4(@rbxts/react-roblox@17.2.3)(@rbxts/react@17.2.3)':
     dependencies:
       '@rbxts/react': 17.2.3
       '@rbxts/react-roblox': 17.2.3
@@ -1244,7 +1247,7 @@ snapshots:
 
   '@rbxts/remap@0.2.2': {}
 
-  '@rbxts/remo@1.5.1': {}
+  '@rbxts/remo@1.5.2': {}
 
   '@rbxts/ripple@0.9.3': {}
 
@@ -1264,7 +1267,7 @@ snapshots:
 
   '@rbxts/trove@1.3.0': {}
 
-  '@rbxts/types@1.0.848': {}
+  '@rbxts/types@1.0.855': {}
 
   '@roblox-ts/luau-ast@2.0.0': {}
 
