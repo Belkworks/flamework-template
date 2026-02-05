@@ -1,47 +1,26 @@
-import { OnStart, Service } from "@flamework/core";
-import CharmSync, { SyncPatch, SyncPayload } from "@rbxts/charm-sync";
+import { Service } from "@flamework/core";
 import * as atoms from "common/atoms";
 import { remotes } from "common/remotes";
+import { OnJoin, OnLeave } from "./MetaService";
+import CharmSync from "@rbxts/charm-sync";
+import { computed } from "@rbxts/charm";
+import { playerDataAtom } from "server/store/data";
 
-const server = CharmSync.server({ atoms });
 const syncRemote = remotes.atoms.sync;
+const { server } = CharmSync;
 
-const filterPayload = (player: Player, payload: SyncPayload<typeof atoms>): SyncPayload<typeof atoms> | undefined => {
-	if (payload.type === "init")
-		return {
-			type: "init",
-			data: {
-				...payload.data,
-				sharedPlayerData: {
-					[player.Name]: payload.data.sharedPlayerData.get(player.Name),
-				} as unknown as ReturnType<typeof atoms.sharedPlayerData>,
-			},
-		};
-
-	const playerPatch = payload.data.sharedPlayerData?.get(player.Name);
-	const data = {
-		...payload.data,
-		sharedPlayerData: playerPatch
-			? ({ [player.Name]: playerPatch } as unknown as SyncPatch<ReturnType<typeof atoms.sharedPlayerData>>)
-			: undefined,
-	};
-
-	if (!next(data)[0]) return;
-
-	return {
-		type: "patch",
-		data,
-	};
-};
-
-server.connect((player, payload) => {
-	const filtered = filterPayload(player, payload);
-	if (filtered) syncRemote.fire(player, filtered);
-});
+server.connect((player, payloads) => syncRemote.fire(player, payloads));
 
 @Service()
-export class AtomService implements OnStart {
-	onStart() {
-		remotes.atoms.init.connect(player => server.hydrate(player));
+export class AtomService implements OnJoin, OnLeave {
+	onJoin(player: Player) {
+		server.addSignalsToClient(player, {
+			playerData: computed(() => playerDataAtom().get(player)),
+			...atoms,
+		});
+	}
+
+	onLeave(player: Player) {
+		server.removeClient(player);
 	}
 }
