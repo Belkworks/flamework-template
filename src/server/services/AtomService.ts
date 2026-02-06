@@ -15,7 +15,7 @@ server.connect((player, payloads) => syncRemote.fire(player, payloads));
 export class AtomService implements OnJoin, OnLeave {
 	onJoin(player: Player) {
 		server.addSignalsToClient(player, {
-			playerData: computed(() => playerDataAtom().get(player)),
+			[`player-${player.UserId}`]: computed(() => playerDataAtom().get(player)),
 			...atoms,
 		});
 	}
