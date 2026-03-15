@@ -30,6 +30,9 @@
 							},
 							"@rbxts-js": {
 								"$path": "node_modules/@rbxts-js"
+							},
+							"@belkworks": {
+								"$path": "node_modules/@belkworks"
 							}
 						}
 					}
